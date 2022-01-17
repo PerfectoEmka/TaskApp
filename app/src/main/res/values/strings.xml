@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">kotlin2_L1</string>
+    <string name="start">start</string>
+    <string name="edit">edit</string>
+    <string name="delete">delete</string>
+    <string name="get_shopitem">get shopItem</string>
+    <string name="get_all">get all</string>
+</resources>
