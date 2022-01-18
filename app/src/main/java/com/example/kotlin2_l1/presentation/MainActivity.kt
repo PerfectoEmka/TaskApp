@@ -20,12 +20,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        viewModel.shopList.observe(this, {
-            it.forEach { item ->
-                Log.e("TAG", "list: $item")
-                Toast.makeText(this, item.toString(), Toast.LENGTH_SHORT).show()
-            }
-        })
         initListeners()
     }
 
@@ -52,33 +46,28 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     private fun getShopItem() {
-        try {
-            viewModel.getShopItem(0)
-        } catch (e: IndexOutOfBoundsException){
-            Log.e("TAG", "getShopItem: ${e.message}")
-        }
+        val shopItem = viewModel.getShopItem(0)
+        Log.e("TAG", "getShopItem (MainActivity): $shopItem")
     }
 
     private fun getShopItemList() {
         viewModel.getShopItemList()
+        var count = 0
+        viewModel.shopList.value?.forEach { item ->
+            count++
+            Log.e("TAG", "getShopItemList (MainActivity): $item $count")
+        }
+        Log.e("TAG", "----------------------------------------")
     }
 
     private fun editShopItem() {
-        viewModel.shopList.observe(this, {
-           try {
-               viewModel.editShopItem(0, ShopItem("Emirlan", 3, true))
-           } catch (e: IndexOutOfBoundsException){
-               Log.e("TAG", "editShopItem : ${e.message}")
-           }
-        })
+       viewModel.editShopItem(0, ShopItem("Emirlan", 3, true))
     }
 
     private fun deleteItem() {
-        viewModel.shopList.observe(this, {
-            if (it.isNotEmpty()){
-                viewModel.deleteShopItem(it.first())
-            }
-        })
+        viewModel.shopList.value?.get(0)?.let {
+            viewModel.deleteShopItem(it)
+        }
     }
 
     private fun addShopItem(){

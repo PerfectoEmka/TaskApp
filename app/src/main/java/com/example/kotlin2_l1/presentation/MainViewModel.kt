@@ -16,7 +16,7 @@ class MainViewModel: ViewModel() {
     private val editShopItemUseCase = EditShopItemUseCase(repository)
     private val getShopItemUseCase = GetShopItemUseCase(repository)
 
-    val shopList = MutableLiveData<MutableList<ShopItem>>()
+    val shopList = MutableLiveData<MutableList<ShopItem>?>()
 
     fun addShopItem(shopItem: ShopItem){
         addShopItemUseCase.addShopItem(shopItem)
@@ -35,8 +35,7 @@ class MainViewModel: ViewModel() {
         editShopItemUseCase.editShopItem(index, shopItem)
     }
 
-    fun getShopItem(index: Int){
-        val shopItem = getShopItemUseCase.getShopItem(index)
-        Log.e("TAG", "getShopItem (ViewModel) : $shopItem")
+    fun getShopItem(index: Int): ShopItem?{
+        return getShopItemUseCase.getShopItem(index)
     }
 }

@@ -1,7 +1,10 @@
 package com.example.kotlin2_l1.data
 
+import android.util.Log
 import com.example.kotlin2_l1.domain.ShopItem
 import com.example.kotlin2_l1.domain.ShopListRepository
+import java.lang.IndexOutOfBoundsException
+import java.util.*
 
 object ShopListRepositoryImpl: ShopListRepository {
 
@@ -19,15 +22,27 @@ object ShopListRepositoryImpl: ShopListRepository {
         shopList.remove(shopItem)
     }
 
-    override fun getShopItemList(): MutableList<ShopItem> {
-        return this.shopList
+    override fun getShopItemList(): MutableList<ShopItem>? {
+        if (shopList.isNotEmpty()){
+            return shopList.toList() as MutableList<ShopItem>
+        }
+        return null
     }
 
     override fun editShopItem(index: Int, shopItem: ShopItem) {
-        shopList[index] = shopItem
+        try {
+            shopList[index] = shopItem
+        } catch (e: IndexOutOfBoundsException){
+            Log.e("TAG", "editShopItem (ShopListRepoImpl): IndexOutOfBounds")
+        }
     }
 
-    override fun getShopItem(index: Int): ShopItem {
-        return shopList[index]
+    override fun getShopItem(index: Int): ShopItem? {
+        return try {
+            shopList[index]
+        } catch (e: IndexOutOfBoundsException){
+            Log.e("TAG", "getShopItem (ShopListRepoImpl): IndexOutOfBounds")
+            null
+        }
     }
 }
