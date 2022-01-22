@@ -1,7 +1,5 @@
-package com.example.kotlin2_l1.presentation
+package com.example.kotlin2_l1.presentation.main
 
-import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.kotlin2_l1.data.ShopListRepositoryImpl
 import com.example.kotlin2_l1.domain.*
@@ -16,26 +14,22 @@ class MainViewModel: ViewModel() {
     private val editShopItemUseCase = EditShopItemUseCase(repository)
     private val getShopItemUseCase = GetShopItemUseCase(repository)
 
-    val shopList = MutableLiveData<MutableList<ShopItem>?>()
+    val shopList = getShopItemListUseCase.getShopItemList()
 
     fun addShopItem(shopItem: ShopItem){
         addShopItemUseCase.addShopItem(shopItem)
-    }
-
-    fun getShopItemList(){
-        val list = getShopItemListUseCase.getShopItemList()
-        shopList.value = list
     }
 
     fun deleteShopItem(shopItem: ShopItem){
         deleteShopItemUseCase.deleteShopItem(shopItem)
     }
 
-    fun editShopItem(index: Int, shopItem: ShopItem){
-        editShopItemUseCase.editShopItem(index, shopItem)
+    fun editShopItem(shopItem: ShopItem){
+        val newItem = shopItem.copy(isPicked = !shopItem.isPicked)
+        editShopItemUseCase.editShopItem(newItem)
     }
 
-    fun getShopItem(index: Int): ShopItem?{
-        return getShopItemUseCase.getShopItem(index)
+    fun getShopItem(shopItemId: Int): ShopItem?{
+        return getShopItemUseCase.getShopItem(shopItemId)
     }
 }

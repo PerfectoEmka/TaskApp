@@ -1,14 +1,18 @@
 package com.example.kotlin2_l1.domain
 
+import androidx.lifecycle.LiveData
+
 interface ShopListRepository {
 
     fun addShopItem(shopItem: ShopItem)
 
     fun deleteShopItem(shopItem: ShopItem)
 
-    fun getShopItemList(): MutableList<ShopItem>?
+    fun getShopItemList(): LiveData<List<ShopItem>>
 
-    fun editShopItem(index: Int, shopItem: ShopItem)
+    fun getShopItem(shopItemId: Int): ShopItem
 
-    fun getShopItem(index: Int): ShopItem?
+    fun editShopItem(shopItem: ShopItem)
+
+    fun update()
 }
