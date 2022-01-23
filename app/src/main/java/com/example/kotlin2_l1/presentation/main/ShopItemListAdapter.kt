@@ -14,6 +14,8 @@ import com.example.kotlin2_l1.utils.ShopItemDiffCallback
 class ShopItemListAdapter
     : ListAdapter<ShopItem, ShopItemListAdapter.ShopItemViewHolder>(ShopItemDiffCallback()) {
 
+    private var newList = mutableListOf<ShopItem>()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShopItemViewHolder {
         return if (viewType == Constant.LAYOUT_ITEM_ENABLED){
             ShopItemViewHolder(
@@ -38,9 +40,17 @@ class ShopItemListAdapter
         } else Constant.LAYOUT_ITEM_DISABLED
     }
 
-    fun removeShopItem(absolutePosition: Int) {
-        val newList = ArrayList(currentList)
-        newList.remove(getItem(absolutePosition))
+    fun removeShopItem(position: Int) {
+        newList = ArrayList(currentList)
+        newList.remove(getItem(position))
+        submitList(newList)
+    }
+
+    fun pickShopItem(position: Int){
+        newList = ArrayList(currentList)
+        newList[position] =
+            newList[position]
+                .copy(isPicked = !newList[position].isPicked)
         submitList(newList)
     }
 
@@ -49,14 +59,8 @@ class ShopItemListAdapter
         private val tvCount: TextView = itemView.findViewById(R.id.tv_count)
 
         fun onBind(shopItem: ShopItem){
-
             itemView.setOnLongClickListener{
-                val newList = ArrayList(currentList)
-
-                newList[absoluteAdapterPosition] =
-                    newList[absoluteAdapterPosition]
-                        .copy(isPicked = !newList[absoluteAdapterPosition].isPicked)
-                submitList(newList)
+                pickShopItem(absoluteAdapterPosition)
                 return@setOnLongClickListener true
             }
             tvName.text = shopItem.name
