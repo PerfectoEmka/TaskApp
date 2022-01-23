@@ -8,36 +8,31 @@ import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.kotlin2_l1.R
 import com.example.kotlin2_l1.databinding.ActivityMainBinding
-import com.example.kotlin2_l1.domain.ShopItem
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     private val binding: ActivityMainBinding by viewBinding(R.id.container)
     private val viewModel: MainViewModel by viewModels()
 
-    private var list = mutableListOf<ShopItem>()
-    private lateinit var adapterShopItem: ShopItemAdapter
+    private lateinit var adapter: ShopItemListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         initObservers()
+        setupRv()
     }
 
     private fun initObservers() {
         viewModel.shopList.observe(this, {
-            this.list = it as MutableList<ShopItem>
-            setupRv()
+            adapter.submitList(it)
         })
     }
 
     private fun setupRv() {
-        adapterShopItem = ShopItemAdapter()
-        adapterShopItem.setList(list)
-        binding.mainRecycler.apply {
-            adapter = adapterShopItem
-        }
+        adapter = ShopItemListAdapter()
+        binding.mainRecycler.adapter = adapter
         setUpSwipeListener(binding.mainRecycler)
     }
 
@@ -54,11 +49,11 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 return false
             }
 
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                list.removeAt(viewHolder.absoluteAdapterPosition)
-                //adapterShopItem.setList(list)
-                adapterShopItem.notifyItemRemoved(viewHolder.absoluteAdapterPosition)
-                // ---вот с этим срабатывает анимация сдвига у рекуклера при удалении---
+            override fun onSwiped(
+                viewHolder: RecyclerView.ViewHolder,
+                direction: Int
+            ) {
+                adapter.removeShopItem(viewHolder.absoluteAdapterPosition)
             }
         }
         val itemTouchHelper = ItemTouchHelper(callback)
