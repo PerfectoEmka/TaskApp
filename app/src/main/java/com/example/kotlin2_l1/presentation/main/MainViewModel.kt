@@ -25,11 +25,10 @@ class MainViewModel: ViewModel() {
     }
 
     fun editShopItem(shopItem: ShopItem){
-        val newItem = shopItem.copy(isPicked = !shopItem.isPicked)
-        editShopItemUseCase.editShopItem(newItem)
+        editShopItemUseCase.editShopItem(shopItem.copy(isPicked = !shopItem.isPicked))
     }
 
-    fun getShopItem(shopItemId: Int): ShopItem?{
+    fun getShopItem(shopItemId: Int): ShopItem{
         return getShopItemUseCase.getShopItem(shopItemId)
     }
 }

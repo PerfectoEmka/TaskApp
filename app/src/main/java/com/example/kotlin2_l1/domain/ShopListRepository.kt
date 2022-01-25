@@ -13,6 +13,4 @@ interface ShopListRepository {
     fun getShopItem(shopItemId: Int): ShopItem
 
     fun editShopItem(shopItem: ShopItem)
-
-    fun update()
 }

@@ -6,7 +6,7 @@ data class ShopItem(
     var name: String,
     val count: Int,
     var isPicked: Boolean,
-    var id: Int = UNDEFINED_ID
+    var id: Int
 
     ) : Serializable {
     companion object{

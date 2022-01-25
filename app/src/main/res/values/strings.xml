@@ -5,4 +5,9 @@
     <string name="delete">delete</string>
     <string name="get_shopitem">get shopItem</string>
     <string name="get_all">get all</string>
+    <string name="addShopItem">add ShopItem</string>
+    <string name="id">id</string>
+    <string name="add">add</string>
+    <string name="count">count</string>
+    <string name="name">name</string>
 </resources>

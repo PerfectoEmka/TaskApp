@@ -10,24 +10,26 @@ import com.example.kotlin2_l1.R
 import com.example.kotlin2_l1.domain.ShopItem
 import com.example.kotlin2_l1.utils.Constant
 import com.example.kotlin2_l1.utils.ShopItemDiffCallback
+import java.lang.RuntimeException
 
 class ShopItemListAdapter
     : ListAdapter<ShopItem, ShopItemListAdapter.ShopItemViewHolder>(ShopItemDiffCallback()) {
 
-    private var newList = mutableListOf<ShopItem>()
+    var onShopItemLongClickListener: ((ShopItem) -> Unit)? = null
+    var onShopItemClickListener: ((ShopItem) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShopItemViewHolder {
-        return if (viewType == Constant.LAYOUT_ITEM_ENABLED){
-            ShopItemViewHolder(
-                LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_recycler, parent, false)
-            )
-        } else {
-            ShopItemViewHolder(
-                LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_recycler_disabled, parent, false)
-            )
+        val layout = when (viewType){
+            LAYOUT_ITEM_ENABLED -> R.layout.item_recycler_disabled
+            LAYOUT_ITEM_DISABLED -> R.layout.item_recycler_enabled
+            else -> throw RuntimeException("Unknown view type: $viewType")
         }
+        return ShopItemViewHolder(
+            LayoutInflater.from(parent.context).inflate(
+                    layout,
+                    parent,
+                    false
+            ))
     }
 
     override fun onBindViewHolder(holder: ShopItemViewHolder, position: Int) {
@@ -35,23 +37,9 @@ class ShopItemListAdapter
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (!getItem(position).isPicked){
+        return if (getItem(position).isPicked){
             Constant.LAYOUT_ITEM_ENABLED
         } else Constant.LAYOUT_ITEM_DISABLED
-    }
-
-    fun removeShopItem(position: Int) {
-        newList = ArrayList(currentList)
-        newList.remove(getItem(position))
-        submitList(newList)
-    }
-
-    fun pickShopItem(position: Int){
-        newList = ArrayList(currentList)
-        newList[position] =
-            newList[position]
-                .copy(isPicked = !newList[position].isPicked)
-        submitList(newList)
     }
 
     inner class ShopItemViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -60,11 +48,19 @@ class ShopItemListAdapter
 
         fun onBind(shopItem: ShopItem){
             itemView.setOnLongClickListener{
-                pickShopItem(absoluteAdapterPosition)
-                return@setOnLongClickListener true
+                onShopItemLongClickListener?.invoke(shopItem)
+                true
+            }
+            itemView.setOnClickListener{
+                onShopItemClickListener?.invoke(shopItem)
             }
             tvName.text = shopItem.name
             tvCount.text = shopItem.count.toString()
         }
+    }
+
+    companion object{
+        const val LAYOUT_ITEM_ENABLED = 1
+        const val LAYOUT_ITEM_DISABLED = 0
     }
 }

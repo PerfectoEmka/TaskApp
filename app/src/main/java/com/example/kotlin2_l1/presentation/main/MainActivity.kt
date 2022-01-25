@@ -1,5 +1,6 @@
 package com.example.kotlin2_l1.presentation.main
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.kotlin2_l1.R
 import com.example.kotlin2_l1.databinding.ActivityMainBinding
+import com.example.kotlin2_l1.presentation.add_shopItem.AddShopItemActivity
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
@@ -22,6 +24,19 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
         initObservers()
         setupRv()
+        initListeners()
+    }
+
+    private fun initListeners() {
+        adapter.onShopItemLongClickListener = {
+            viewModel.editShopItem(it)
+        }
+
+        binding.btnAdd.setOnClickListener{
+            Intent(this, AddShopItemActivity::class.java).apply {
+                startActivity(this)
+            }
+        }
     }
 
     private fun initObservers() {
@@ -53,7 +68,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 viewHolder: RecyclerView.ViewHolder,
                 direction: Int
             ) {
-                adapter.removeShopItem(viewHolder.absoluteAdapterPosition)
+                viewModel.deleteShopItem(adapter.currentList[viewHolder.absoluteAdapterPosition])
             }
         }
         val itemTouchHelper = ItemTouchHelper(callback)
