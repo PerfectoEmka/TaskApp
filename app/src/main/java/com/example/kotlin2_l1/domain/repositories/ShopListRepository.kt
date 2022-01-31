@@ -1,6 +1,7 @@
-package com.example.kotlin2_l1.domain
+package com.example.kotlin2_l1.domain.repositories
 
 import androidx.lifecycle.LiveData
+import com.example.kotlin2_l1.domain.models.ShopItem
 
 interface ShopListRepository {
 
@@ -10,7 +11,9 @@ interface ShopListRepository {
 
     fun getShopItemList(): LiveData<List<ShopItem>>
 
-    fun getShopItem(shopItemId: Int): ShopItem
+    fun getShopItemById(shopItemId: Int): ShopItem
 
     fun editShopItem(shopItem: ShopItem)
+
+    fun getShopItemByName(shopItemName: String): ShopItem
 }

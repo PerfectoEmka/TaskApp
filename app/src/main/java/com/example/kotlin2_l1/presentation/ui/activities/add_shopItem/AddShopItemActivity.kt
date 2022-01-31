@@ -1,4 +1,4 @@
-package com.example.kotlin2_l1.presentation.add_shopItem
+package com.example.kotlin2_l1.presentation.ui.activities.add_shopItem
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,8 +6,8 @@ import androidx.activity.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.kotlin2_l1.R
 import com.example.kotlin2_l1.databinding.ActivityAddShopItemBinding
-import com.example.kotlin2_l1.domain.ShopItem
-import com.example.kotlin2_l1.presentation.main.MainViewModel
+import com.example.kotlin2_l1.domain.models.ShopItem
+import com.example.kotlin2_l1.presentation.ui.activities.main.MainViewModel
 
 class AddShopItemActivity : AppCompatActivity() {
 
@@ -33,11 +33,13 @@ class AddShopItemActivity : AppCompatActivity() {
             binding.etCount.text.isNotEmpty() &&
             binding.etId.text.isNotEmpty()){
 
-            viewModel.addShopItem(ShopItem(
+            viewModel.addShopItem(
+                ShopItem(
                 binding.etName.text.toString(),
                 Integer.parseInt(binding.etCount.text.toString()),
                 false,
-                Integer.parseInt(binding.etId.text.toString())))
+                Integer.parseInt(binding.etId.text.toString()))
+            )
             finish()
         }
     }

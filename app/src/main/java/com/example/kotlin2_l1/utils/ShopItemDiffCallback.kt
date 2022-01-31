@@ -1,7 +1,7 @@
 package com.example.kotlin2_l1.utils
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.kotlin2_l1.domain.ShopItem
+import com.example.kotlin2_l1.domain.models.ShopItem
 
 class ShopItemDiffCallback: DiffUtil.ItemCallback<ShopItem>() {
 

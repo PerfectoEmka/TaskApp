@@ -11,10 +11,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Kotlin2_L1">
         <activity
-            android:name=".presentation.add_shopItem.AddShopItemActivity"
+            android:name=".presentation.ui.activities.add_shopItem.AddShopItemActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.main.MainActivity"
+            android:name=".presentation.ui.activities.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

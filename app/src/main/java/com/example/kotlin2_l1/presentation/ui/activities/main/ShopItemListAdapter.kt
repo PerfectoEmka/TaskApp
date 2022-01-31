@@ -1,4 +1,4 @@
-package com.example.kotlin2_l1.presentation.main
+package com.example.kotlin2_l1.presentation.ui.activities.main
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlin2_l1.R
-import com.example.kotlin2_l1.domain.ShopItem
+import com.example.kotlin2_l1.domain.models.ShopItem
 import com.example.kotlin2_l1.utils.Constant
 import com.example.kotlin2_l1.utils.ShopItemDiffCallback
 import java.lang.RuntimeException

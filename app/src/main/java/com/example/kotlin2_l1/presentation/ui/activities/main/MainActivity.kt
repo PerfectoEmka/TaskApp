@@ -1,15 +1,18 @@
-package com.example.kotlin2_l1.presentation.main
+package com.example.kotlin2_l1.presentation.ui.activities.main
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.widget.SearchView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.kotlin2_l1.R
 import com.example.kotlin2_l1.databinding.ActivityMainBinding
-import com.example.kotlin2_l1.presentation.add_shopItem.AddShopItemActivity
+import com.example.kotlin2_l1.presentation.ui.activities.add_shopItem.AddShopItemActivity
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
@@ -49,6 +52,31 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         adapter = ShopItemListAdapter()
         binding.mainRecycler.adapter = adapter
         setUpSwipeListener(binding.mainRecycler)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.options_menu, menu)
+        val searchItem = menu?.findItem(R.id.search)
+        val searchView = searchItem?.actionView as SearchView?
+
+        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                p0.let {
+                    viewModel.getShopItemByName(p0.toString())
+                    viewModel.shopItem.observe(this@MainActivity, {
+                        Toast.makeText(
+                            this@MainActivity,
+                            it.toString(),
+                            Toast.LENGTH_SHORT).show()
+                    })
+                }
+                return true
+            }
+            override fun onQueryTextChange(p0: String?): Boolean {
+                return false
+            }
+        })
+        return super.onCreateOptionsMenu(menu)
     }
 
     private fun setUpSwipeListener(rv: RecyclerView){

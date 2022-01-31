@@ -1,4 +1,4 @@
-package com.example.kotlin2_l1.domain
+package com.example.kotlin2_l1.domain.models
 
 import java.io.Serializable
 
@@ -10,6 +10,6 @@ data class ShopItem(
 
     ) : Serializable {
     companion object{
-        const val UNDEFINED_ID = -1
+        const val UNDEFINED_ID = 0
     }
 }
