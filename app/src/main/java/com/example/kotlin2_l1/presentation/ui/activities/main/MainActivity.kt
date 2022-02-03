@@ -13,7 +13,9 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.kotlin2_l1.R
 import com.example.kotlin2_l1.databinding.ActivityMainBinding
 import com.example.kotlin2_l1.presentation.ui.activities.add_shopItem.AddShopItemActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     private val binding: ActivityMainBinding by viewBinding(R.id.container)

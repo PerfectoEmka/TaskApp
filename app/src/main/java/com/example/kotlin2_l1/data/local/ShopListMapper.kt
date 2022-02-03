@@ -2,7 +2,6 @@ package com.example.kotlin2_l1.data.local
 
 import com.example.kotlin2_l1.data.local.db_models.ShopItemDBModel
 import com.example.kotlin2_l1.domain.models.ShopItem
-import java.lang.RuntimeException
 
 class ShopListMapper {
 

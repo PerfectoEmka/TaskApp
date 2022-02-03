@@ -8,7 +8,9 @@ import com.example.kotlin2_l1.R
 import com.example.kotlin2_l1.databinding.ActivityAddShopItemBinding
 import com.example.kotlin2_l1.domain.models.ShopItem
 import com.example.kotlin2_l1.presentation.ui.activities.main.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AddShopItemActivity : AppCompatActivity() {
 
     private val binding: ActivityAddShopItemBinding by viewBinding()

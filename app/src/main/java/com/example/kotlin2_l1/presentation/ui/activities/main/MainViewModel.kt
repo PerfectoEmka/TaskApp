@@ -5,13 +5,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.kotlin2_l1.App
+import com.example.kotlin2_l1.data.local.ShopListRepositoryImpl
 import com.example.kotlin2_l1.domain.models.ShopItem
+import com.example.kotlin2_l1.domain.repositories.ShopListRepository
 import com.example.kotlin2_l1.domain.use_cases.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-
-class MainViewModel: ViewModel() {
-
-    private val repository = App.shopListRepository
+import javax.inject.Inject
+@HiltViewModel
+class MainViewModel @Inject constructor(repository: ShopListRepositoryImpl)
+    : ViewModel() {
 
     private val addShopItemUseCase = AddShopItemUseCase(repository)
     private val getShopItemListUseCase = GetShopItemListUseCase(repository)
