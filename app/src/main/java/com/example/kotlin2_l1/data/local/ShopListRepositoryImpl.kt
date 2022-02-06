@@ -2,8 +2,13 @@ package com.example.kotlin2_l1.data.local
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
+import com.example.kotlin2_l1.data.local.db_models.ShopItemDBModel
 import com.example.kotlin2_l1.domain.models.ShopItem
 import com.example.kotlin2_l1.domain.repositories.ShopListRepository
+import com.example.kotlin2_l1.utils.CustomException
+import java.lang.Exception
+import java.lang.NullPointerException
+import java.lang.RuntimeException
 import javax.inject.Inject
 
 class ShopListRepositoryImpl @Inject constructor(private val shopDao : ShopDao)
@@ -41,15 +46,11 @@ class ShopListRepositoryImpl @Inject constructor(private val shopDao : ShopDao)
     }
 
     override fun getShopItemByName(shopItemName: String): ShopItem {
-        val shopItemDB = shopDao.getShopItemByName(shopItemName)
-            /*App.appDatabase
-            .shopItemDao()
-            .getShopItemByName(shopItemName)*/
-
-        return if (shopItemDB == null){
-            ShopItem("Item not found", -1, false, -1)
-        } else{
-            mapper.mapDBModelToEntity(shopItemDB)
+        try {
+            val shopItemDB = shopDao.getShopItemByName(shopItemName)
+            return mapper.mapDBModelToEntity(shopItemDB)
+        } catch (e: NullPointerException){
+            throw RuntimeException()
         }
     }
 

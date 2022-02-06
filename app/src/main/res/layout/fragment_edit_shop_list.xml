@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".presentation.ui.activities.add_shopItem.AddShopItemActivity"
+    android:id="@+id/container"
+    android:padding="16dp"
+    >
+
+    <EditText
+        android:id="@+id/et_name"
+        android:hint="@string/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/et_count"
+        android:layout_marginBottom="8dp"
+        tools:ignore="Autofill,MissingPrefix" />
+
+    <EditText
+        android:id="@+id/et_count"
+        android:hint="@string/count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        app:layout_constraintTop_toBottomOf="@id/et_name"
+        app:layout_constraintBottom_toTopOf="@id/et_id"
+        android:layout_marginBottom="8dp"
+        tools:ignore="Autofill,MissingPrefix" />
+
+    <EditText
+        android:id="@+id/et_id"
+        android:hint="@string/id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        app:layout_constraintTop_toBottomOf="@id/et_count"
+        app:layout_constraintBottom_toTopOf="@id/btn_add"
+        tools:ignore="Autofill,MissingPrefix" />
+
+    <Button
+        android:id="@+id/btn_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add"
+        app:layout_constraintTop_toBottomOf="@id/et_id"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

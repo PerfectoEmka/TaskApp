@@ -10,6 +10,4 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 @HiltAndroidApp
-class App: Application() {
-
-}
+class App: Application()
